@@ -1,0 +1,52 @@
+REGISTER-REFERENCE INSTRUCTIONS
+
+(opcode = 111, I = 0)
+
+✔ Instructions tested
+
+CLA, CMA, INC, HLT
+
+🔹 RAM Initialization
+signal RAM : ram_type := (
+    0 => x"7800", -- CLA : AC <- 0000
+    1 => x"7020", -- INC : AC <- AC + 1 = 0001
+    2 => x"7200", -- CMA : AC <- ~AC = FFFE
+    3 => x"7001", -- HLT : Stop
+    others => x"0000"
+);
+
+
+I/O INSTRUCTIONS
+
+(opcode = 111, I = 1)
+
+✔ Instructions tested
+
+INP, OUT, HLT
+
+🔹 RAM Initialization
+signal RAM : ram_type := (
+    0 => x"F800", -- INP : AC(7 downto 0) <- INPR
+    1 => x"F400", -- OUT : OUTR <- AC(7 downto 0)
+    2 => x"7001", -- HLT : Stop
+    others => x"0000"
+);
+3️⃣ MEMORY-REFERENCE INSTRUCTIONS
+
+(opcode = 000–110)
+
+✔ Instructions tested
+
+LDA, ADD, STA, HLT
+
+🔹 RAM Initialization
+signal RAM : ram_type := (
+    0  => x"200A", -- LDA 010 : AC <- M[10] = 0005
+    1  => x"100B", -- ADD 011 : AC <- AC + M[11] = 0008
+    2  => x"300C", -- STA 012 : M[12] <- AC
+    3  => x"7001", -- HLT
+    10 => x"0005", -- Data
+    11 => x"0003", -- Data
+    12 => x"0000", -- Result
+    others => x"0000"
+);
